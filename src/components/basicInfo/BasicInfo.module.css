@@ -1,0 +1,65 @@
+.time {
+  display: flex;
+  align-items: flex-end;
+}
+
+.time h1 {
+  font-size: 6rem;
+  font-weight: 400;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  line-height: 80px;
+  height: 80px;
+  color: whitesmoke;
+}
+
+.temp {
+  display: flex;
+  margin-left: 20px;
+  margin-bottom: 7px;
+  height: 20px;
+}
+
+.temp i {
+  font-size: 0.875rem;
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.temp .tempValue {
+  font-size: 1.5rem;
+  margin-left: 5px;
+  height: 20px;
+}
+
+.temp .tempUnit {
+  font-size: 0.8rem;
+  margin-left: 3px;
+  margin-top: 3px;
+}
+
+/* Place */
+
+.place {
+  margin-top: 10px;
+}
+
+.place p {
+  font-size: 1.1rem;
+  margin-left: 3px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media only screen and (max-width: 500px) {
+  .time h1 {
+    font-size: 4rem;
+  }
+
+  .temp {
+    margin-left: 15px;
+    margin-bottom: 19px;
+  }
+
+  .place {
+    margin-top: 0;
+  }
+}

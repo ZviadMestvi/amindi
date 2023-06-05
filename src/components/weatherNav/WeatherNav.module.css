@@ -1,0 +1,54 @@
+.weatherNav {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.weatherNav li {
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  transition: all 250ms ease;
+}
+
+.weatherNav li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.weatherNav li button {
+  font-size: 16px;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+  text-transform: capitalize;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+.detail {
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  margin-top: 15px;
+  transition: all 250ms ease;
+  text-transform: capitalize;
+  width: max-content;
+  color: white;
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+@media only screen and (max-width: 500px) {
+  .weatherNav {
+    flex-wrap: wrap;
+  }
+}

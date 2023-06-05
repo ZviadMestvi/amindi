@@ -1,0 +1,38 @@
+.weather {
+  margin-top: 70px;
+}
+
+.updated,
+.updated i {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.updated span {
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.cardsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.cards {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 5px;
+}
+
+.weather ::-webkit-scrollbar {
+  width: 0;
+}
+
+.weather ::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.1);
+}
