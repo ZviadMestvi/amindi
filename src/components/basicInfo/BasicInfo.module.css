@@ -12,17 +12,32 @@
   color: whitesmoke;
 }
 
+.weatherName {
+  display: none;
+  padding: 5px 6px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: -35px;
+  width: max-content;
+}
+
 .temp {
   display: flex;
   margin-left: 20px;
   margin-bottom: 7px;
+  position: relative;
   height: 20px;
 }
 
-.temp i {
-  font-size: 0.875rem;
-  margin-top: 6px;
-  color: rgba(255, 255, 255, 0.5);
+.temp img {
+  margin-top: 2px;
+  width: 24px;
+  height: 24px;
+}
+
+.temp img:hover + .weatherName {
+  display: block;
 }
 
 .temp .tempValue {

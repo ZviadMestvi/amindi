@@ -2,14 +2,19 @@
   margin-top: 70px;
 }
 
-.updated,
-.updated i {
+.updateTime {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.updated span {
+.updateTime span {
   margin-left: 6px;
   cursor: pointer;
+}
+
+.updateTime img {
+  vertical-align: middle;
+  width: 19px;
+  height: 19px;
 }
 
 .cardsWrapper {
@@ -25,6 +30,7 @@
   display: flex;
   gap: 16px;
   margin-bottom: 5px;
+  width: 100%;
 }
 
 .weather ::-webkit-scrollbar {

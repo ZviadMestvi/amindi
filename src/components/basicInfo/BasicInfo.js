@@ -19,10 +19,8 @@ const BasicInfo = () => {
       <div className={classes.time}>
         <h1>{ctx.currentTime24}</h1>
         <p className={classes.temp}>
-          <i
-            className={`fa-solid ${weatherCode?.name || 'fa-xmark'}`}
-            style={{ color: weatherCode?.color }}
-          ></i>
+          {weatherCode && <img src={weatherCode?.src} alt={weatherCode?.alt} />}
+          <span className={classes.weatherName}>{weatherCode?.alt}</span>
           <span className={classes.tempValue}>{currentTemp || null}</span>
           <span className={classes.tempUnit}>{ctx.tempUnit}</span>
         </p>

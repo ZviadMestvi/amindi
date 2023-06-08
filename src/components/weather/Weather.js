@@ -1,10 +1,11 @@
 import { useContext } from 'react';
 import WeatherCard from '../weatherCard/WeatherCard';
 import WeatherContext from '../../store/weatherContext';
-import { DAYS_SHORT, WEATHER_CODES } from '../../constants';
+import { DAYS_SHORT, MONTHS_SHORT, WEATHER_CODES } from '../../constants';
 import { convertUnixTo24Hour } from '../../helpers';
-import classes from './Weather.module.css';
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
+import reload from '../../assets/reload.svg';
+import classes from './Weather.module.css';
 
 const Weather = () => {
   const ctx = useContext(WeatherContext);
@@ -37,7 +38,9 @@ const Weather = () => {
     }
 
     const data = {
-      time: DAYS_SHORT[i % 7],
+      time: `${DAYS_SHORT[i % 7]} (${hourDate.getDate()} ${
+        MONTHS_SHORT[hourDate.getMonth()]
+      })`,
       temp: `${Math.round(ctx.weatherData?.minTemp[i])}° - ${Math.round(
         ctx.weatherData?.maxTemp[i]
       )}`,
@@ -53,10 +56,10 @@ const Weather = () => {
 
   return (
     <section className={classes.weather}>
-      <p className={classes.updated}>
+      <p className={classes.updateTime}>
         Last updated<span>{ctx.lastUpdate}</span>
         <span onClick={() => ctx.updateWeather()}>
-          <i className="fa-solid fa-rotate-left fa-rotate-90"></i>
+          <img src={reload} alt="Update weather" />
         </span>
       </p>
       <div className={classes.cardsWrapper}>
