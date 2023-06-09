@@ -1,9 +1,10 @@
 import classes from './LoadingSpinner.module.css';
+import spinner from '../../assets/spinner.svg';
 
 const LoadingSpinner = () => {
   return (
     <div className={classes.wrapper}>
-      <i class="fa-solid fa-spinner"></i>
+      <img src={spinner} alt="Loading..." />
     </div>
   );
 };

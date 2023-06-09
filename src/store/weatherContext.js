@@ -15,6 +15,7 @@ const WeatherContext = React.createContext({
   chooseWeatherOption: () => {},
   updateWeather: () => {},
   isLoading: false,
+  basicIsLoading: false,
 });
 
 export const WeatherContextProvider = props => {
@@ -25,33 +26,65 @@ export const WeatherContextProvider = props => {
   const [basicInfo, setBasicInfo] = useState({});
   const [lastUpdate, setLastUpdate] = useState('01/01 22:22');
   const [isLoading, setIsLoading] = useState(false);
+  const [basicIsLoading, setBasicIsLoading] = useState(false);
+  const [rotateValue, setRotateValue] = useState(-720);
 
-  const chooseWeatherOption = function (option) {
-    setWeatherOption(option);
-    fetchData(option).then(data => setWeatherData(data));
-  };
-
-  const getCurrentWeather = function () {
-    fetchCurrentWeather().then(data => setBasicInfo(data));
-  };
-
-  const updateWeather = function () {
+  const chooseWeatherOption = async function (option) {
     setIsLoading(true);
-    fetchData(weatherOption).then(data => setWeatherData(data));
+    try {
+      setWeatherOption(option);
+      const data = await fetchData(option);
+      setWeatherData(data);
+    } catch (error) {
+      console.error(error);
+    }
+    setIsLoading(false);
+  };
+
+  const getCurrentWeather = async function () {
+    setBasicIsLoading(true);
+    try {
+      const data = await fetchCurrentWeather();
+      setBasicInfo(data);
+    } catch (error) {
+      console.error(error);
+    }
+    setBasicIsLoading(false);
+  };
+
+  const updateWeather = async function (el) {
+    setRotateValue(rotateValue - 720);
+    el.target.style.transform = `rotate(${rotateValue}deg)`;
+
+    setIsLoading(true);
+    try {
+      getCurrentWeather();
+      fetchData(weatherOption);
+      const data = await fetchData(weatherOption);
+      setWeatherData(data);
+    } catch (error) {
+      console.error(error);
+    }
+    setIsLoading(false);
+  };
+
+  const initialFetch = async function () {
+    setIsLoading(true);
+    getCurrentWeather();
+    const data = await fetchData(weatherOption);
+    setWeatherData(data);
     setLastUpdate(getUpdateDate());
     setIsLoading(false);
   };
 
   useEffect(() => {
-    fetchData(weatherOption).then(data => setWeatherData(data));
-    getCurrentWeather();
-    setLastUpdate(getUpdateDate());
+    initialFetch();
 
     // Update weather every hour
-    const weatherUpdateIntv = setInterval(() => {
-      fetchData(weatherOption).then(data => setWeatherData(data));
-      getCurrentWeather();
-    }, 60000);
+    // const weatherUpdateIntv = setInterval(() => {
+    //   fetchData(weatherOption).then(data => setWeatherData(data));
+    //   getCurrentWeather();
+    // }, 3600000);
 
     // Update clock every second
     const interval = setInterval(() => {
@@ -60,9 +93,9 @@ export const WeatherContextProvider = props => {
 
     return () => {
       clearInterval(interval);
-      clearInterval(weatherUpdateIntv);
+      // clearInterval(weatherUpdateIntv);
     };
-  }, [weatherOption]);
+  }, []);
 
   return (
     <WeatherContext.Provider
@@ -76,6 +109,7 @@ export const WeatherContextProvider = props => {
         lastUpdate,
         updateWeather,
         isLoading,
+        basicIsLoading,
       }}
     >
       {props.children}

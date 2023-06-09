@@ -1,7 +1,15 @@
-.wrapper i {
-  font-size: 1.2rem;
-  transform: rotate(360deg);
+.wrapper {
+  width: inherit;
+  height: inherit;
+}
+
+.wrapper img {
+  width: 30px;
+  height: 30px;
   animation: spinner-rotate 1s infinite linear;
+  position: relative;
+  top: 50%;
+  left: 50%;
 }
 
 @keyframes spinner-rotate {

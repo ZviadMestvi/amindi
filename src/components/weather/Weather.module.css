@@ -12,6 +12,7 @@
 }
 
 .updateTime img {
+  transition: all 800ms ease;
   vertical-align: middle;
   width: 19px;
   height: 19px;
@@ -21,8 +22,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 15px;
   width: 100%;
+  min-height: 162px;
   overflow-x: scroll;
 }
 

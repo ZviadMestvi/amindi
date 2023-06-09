@@ -58,7 +58,7 @@ const Weather = () => {
     <section className={classes.weather}>
       <p className={classes.updateTime}>
         Last updated<span>{ctx.lastUpdate}</span>
-        <span onClick={() => ctx.updateWeather()}>
+        <span onClick={e => ctx.updateWeather(e)}>
           <img src={reload} alt="Update weather" />
         </span>
       </p>

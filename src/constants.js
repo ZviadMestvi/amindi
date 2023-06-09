@@ -80,3 +80,39 @@ export const WEATHER_CODES = [
   { id: 96, src: slightHail, alt: 'Slight hail' },
   { id: 99, src: heavyHail, alt: 'Heavy hail' },
 ];
+
+// { "id": 1, "src": "mainlyClear", "alt": "Mainly clear" },
+// { "id": 2, "src": "partlyCloudy", "alt": "Partly cloudy" },
+// { "id": 3, "src": "overcast", "alt": "Overcast" },
+// { "id": 45, "src": "fog", "alt": "Fog" },
+// { "id": 48, "src": "rimeFog", "alt": "Rime fog" },
+// { "id": 51, "src": "lightDrizzle", "alt": "Light drizzle" },
+// { "id": 53, "src": "midDrizzle", "alt": "Moderate drizzle" },
+// { "id": 55, "src": "heavyDrizzle", "alt": "Heavy drizzle" },
+// {
+//   "id": 56,
+//   "src": "lightFreezingDrizzle",
+//   "alt": "Light freezing drizzle"
+// },
+// {
+//   "id": 57,
+//   "src": "heavyFreezingDrizzle",
+//   "alt": "Heavy freezing drizzle"
+// },
+// { "id": 61, "src": "slightRain", "alt": "Slight rain" },
+// { "id": 63, "src": "midRain", "alt": "Moderate rain" },
+// { "id": 65, "src": "heavyRain", "alt": "Heavy rain" },
+// { "id": 66, "src": "lightFreezingRain", "alt": "Light freezing rain" },
+// { "id": 67, "src": "heavyFreezingRain", "alt": "Heavy freezing rain" },
+// { "id": 71, "src": "slightSnow", "alt": "Slight snow" },
+// { "id": 73, "src": "midSnow", "alt": "Moderate snow" },
+// { "id": 75, "src": "heavySnow", "alt": "Heavy snow" },
+// { "id": 77, "src": "snowGrains", "alt": "Snow grains" },
+// { "id": 80, "src": "slightRainShower", "alt": "Slight rain shower" },
+// { "id": 81, "src": "midRainShower", "alt": "Moderate rain shower" },
+// { "id": 82, "src": "violentRainShower", "alt": "Violent rain shower" },
+// { "id": 85, "src": "slightSnowShower", "alt": "Slight snow shower" },
+// { "id": 86, "src": "heavySnowShower", "alt": "Heavy snow shower" },
+// { "id": 95, "src": "thunder", "alt": "Thunderstorm" },
+// { "id": 96, "src": "slightHail", "alt": "Slight hail" },
+// { "id": 99, "src": "heavyHail", "alt": "Heavy hail" }

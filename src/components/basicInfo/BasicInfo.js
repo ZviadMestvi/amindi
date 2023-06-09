@@ -3,6 +3,7 @@ import WeatherNav from '../weatherNav/WeatherNav';
 import WeatherContext from '../../store/weatherContext';
 import { WEATHER_CODES } from '../../constants';
 import classes from './BasicInfo.module.css';
+import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 
 const BasicInfo = () => {
   const ctx = useContext(WeatherContext);
@@ -18,12 +19,18 @@ const BasicInfo = () => {
     <section className={classes.basicInfo}>
       <div className={classes.time}>
         <h1>{ctx.currentTime24}</h1>
-        <p className={classes.temp}>
-          {weatherCode && <img src={weatherCode?.src} alt={weatherCode?.alt} />}
-          <span className={classes.weatherName}>{weatherCode?.alt}</span>
-          <span className={classes.tempValue}>{currentTemp || null}</span>
-          <span className={classes.tempUnit}>{ctx.tempUnit}</span>
-        </p>
+        {ctx.basicIsLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <p className={classes.temp}>
+            {weatherCode && (
+              <img src={weatherCode?.src} alt={weatherCode?.alt} />
+            )}
+            <span className={classes.weatherName}>{weatherCode?.alt}</span>
+            <span className={classes.tempValue}>{currentTemp || null}</span>
+            <span className={classes.tempUnit}>{ctx.tempUnit}</span>
+          </p>
+        )}
       </div>
 
       <div className={classes.place}>
