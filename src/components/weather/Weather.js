@@ -6,6 +6,7 @@ import { convertUnixTo24Hour } from '../../helpers';
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import reload from '../../assets/reload.svg';
 import classes from './Weather.module.css';
+import Error from '../customError/Error';
 
 const Weather = () => {
   const ctx = useContext(WeatherContext);
@@ -38,7 +39,7 @@ const Weather = () => {
     }
 
     const data = {
-      time: `${DAYS_SHORT[i % 7]} (${hourDate.getDate()} ${
+      time: `${DAYS_SHORT[hourDate.getDay()]} (${hourDate.getDate()} ${
         MONTHS_SHORT[hourDate.getMonth()]
       })`,
       temp: `${Math.round(ctx.weatherData?.minTemp[i])}° - ${Math.round(
@@ -65,6 +66,8 @@ const Weather = () => {
       <div className={classes.cardsWrapper}>
         {ctx.isLoading ? (
           <LoadingSpinner />
+        ) : ctx.fetchError ? (
+          <Error message={ctx.fetchError} />
         ) : (
           <ul className={classes.cards}>{cards}</ul>
         )}

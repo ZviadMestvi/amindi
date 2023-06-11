@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getCurrentTime, getUpdateDate } from '../helpers';
-import { fetchCurrentWeather, fetchData } from '../api';
+import { fetchCurrentWeather, fetchData } from '../fetchData';
 
 const WeatherContext = React.createContext({
   basicInfo: {
@@ -16,6 +16,8 @@ const WeatherContext = React.createContext({
   updateWeather: () => {},
   isLoading: false,
   basicIsLoading: false,
+  fetchError: false,
+  basicFetchError: false,
 });
 
 export const WeatherContextProvider = props => {
@@ -28,27 +30,24 @@ export const WeatherContextProvider = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [basicIsLoading, setBasicIsLoading] = useState(false);
   const [rotateValue, setRotateValue] = useState(-720);
+  const [fetchError, setFetchError] = useState(false);
+  const [basicFetchError, setBasicFetchError] = useState(false);
 
   const chooseWeatherOption = async function (option) {
+    setFetchError(false);
     setIsLoading(true);
-    try {
-      setWeatherOption(option);
-      const data = await fetchData(option);
-      setWeatherData(data);
-    } catch (error) {
-      console.error(error);
-    }
+    setWeatherOption(option);
+    const data = await fetchData(option);
+    if (data.status === 'error') setFetchError(data.errorMsg);
+    setWeatherData(data);
     setIsLoading(false);
   };
 
   const getCurrentWeather = async function () {
     setBasicIsLoading(true);
-    try {
-      const data = await fetchCurrentWeather();
-      setBasicInfo(data);
-    } catch (error) {
-      console.error(error);
-    }
+    const data = await fetchCurrentWeather();
+    if (data.status === 'error') setBasicFetchError(data.errorMsg);
+    setBasicInfo(data);
     setBasicIsLoading(false);
   };
 
@@ -57,14 +56,10 @@ export const WeatherContextProvider = props => {
     el.target.style.transform = `rotate(${rotateValue}deg)`;
 
     setIsLoading(true);
-    try {
-      getCurrentWeather();
-      fetchData(weatherOption);
-      const data = await fetchData(weatherOption);
-      setWeatherData(data);
-    } catch (error) {
-      console.error(error);
-    }
+    getCurrentWeather();
+    fetchData(weatherOption);
+    const data = await fetchData(weatherOption);
+    setWeatherData(data);
     setIsLoading(false);
   };
 
@@ -72,6 +67,7 @@ export const WeatherContextProvider = props => {
     setIsLoading(true);
     getCurrentWeather();
     const data = await fetchData(weatherOption);
+    if (data.status === 'error') setFetchError(data.errorMsg);
     setWeatherData(data);
     setLastUpdate(getUpdateDate());
     setIsLoading(false);
@@ -110,6 +106,8 @@ export const WeatherContextProvider = props => {
         updateWeather,
         isLoading,
         basicIsLoading,
+        fetchError,
+        basicFetchError,
       }}
     >
       {props.children}
