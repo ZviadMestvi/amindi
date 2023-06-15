@@ -1,0 +1,22 @@
+.wrapper {
+  padding: 10px 12px;
+  backdrop-filter: blur(3px);
+  background-color: rgba(99, 0, 15, 0.3);
+  border: 1px solid rgba(99, 0, 15, 0.05);
+  border-radius: 5px;
+  position: absolute;
+  top: 65px;
+  left: 80px;
+}
+
+@media only screen and (max-width: 1300px) {
+  .wrapper {
+    left: 30px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .wrapper {
+    left: 16px;
+  }
+}

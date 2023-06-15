@@ -4,9 +4,10 @@ import classes from './WeatherNav.module.css';
 import WeatherContext from '../../store/weatherContext';
 
 const WeatherNav = () => {
+  const savedWeatherOption = JSON.parse(localStorage.getItem('weatherOption'));
   const ctx = useContext(WeatherContext);
-  const [activeBtn, setActiveBtn] = useState(1);
-  const [detail, setDetail] = useState('7 Days');
+  const [activeBtn, setActiveBtn] = useState(savedWeatherOption?.id || 1);
+  const [detail, setDetail] = useState(savedWeatherOption?.detail || '7 Days');
 
   const options = WEATHER_OPTIONS.map(option => {
     return (
@@ -14,7 +15,7 @@ const WeatherNav = () => {
         key={option.id}
         className={option.id === activeBtn ? classes.active : ''}
         onClick={() => {
-          ctx.chooseWeatherOption(option.name);
+          ctx.chooseWeatherOption(option);
           setActiveBtn(option.id);
           setDetail(option.detail);
         }}

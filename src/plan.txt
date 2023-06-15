@@ -1,0 +1,38 @@
+4 weather option
+
+each one of them should have it's own:
+
+error message
+data in object
+last update time
+
+///////
+
+on app load, it should start with default options (if there is no options in local storage):
+load current temperature and set in local storage
+  if there is any kind of error, show error box top left corner and load from local storage,
+  otherwise fetch data and set to local storage.
+
+load daily data, and save every option's data in local storage
+  in case of error, show error box (on top of another error box, if there is one) then either load local storage if possible or show warning in place of weather cards;
+
+set current time for update time even if theres no error;
+
+/////////
+
+set weather option 
+
+in case of error, show error box and either load local storage if possible or show warning in place of weather cards
+
+fetch data and save in local storage if there are no errors
+
+/////////////// 
+
+fetch data and save in local storage if there are no errors
+
+in case of error, show error box and either load local storage if possible or show warning in place of weather cards
+
+set updated last update time
+
+
+!!!!!!!! I NEED TO MAKE LAST UPDATE TIME SEPERATE FOR FOUR OF them

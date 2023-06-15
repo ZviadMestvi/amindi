@@ -14,73 +14,121 @@ const WeatherContext = React.createContext({
   lastUpdate: '01/01 00:00',
   chooseWeatherOption: () => {},
   updateWeather: () => {},
-  isLoading: false,
-  basicIsLoading: false,
-  fetchError: false,
-  basicFetchError: false,
+  error: false,
 });
 
 export const WeatherContextProvider = props => {
   const [tempUnit, setTempUnit] = useState('°C');
   const [currentTime24, setCurrentTime24] = useState(getCurrentTime());
-  const [weatherOption, setWeatherOption] = useState('daily');
-  const [weatherData, setWeatherData] = useState({});
-  const [basicInfo, setBasicInfo] = useState({});
-  const [lastUpdate, setLastUpdate] = useState('01/01 22:22');
-  const [isLoading, setIsLoading] = useState(false);
-  const [basicIsLoading, setBasicIsLoading] = useState(false);
+  const [weatherOption, setWeatherOption] = useState(
+    JSON.parse(localStorage.getItem('weatherOption')) || {
+      id: 1,
+      name: 'daily',
+      detail: '7 days',
+    }
+  );
+  const [weatherData, setWeatherData] = useState(
+    JSON.parse(localStorage.getItem(`${weatherOption.name}Data`)) || {
+      status: 'default',
+    }
+  );
+  const [basicInfo, setBasicInfo] = useState(
+    JSON.parse(localStorage.getItem('basicInfo')) || {}
+  );
+  const [lastUpdate, setLastUpdate] = useState(
+    localStorage.getItem('lastUpdateDate') || '01/01 22:22'
+  );
   const [rotateValue, setRotateValue] = useState(-720);
-  const [fetchError, setFetchError] = useState(false);
-  const [basicFetchError, setBasicFetchError] = useState(false);
-
-  const chooseWeatherOption = async function (option) {
-    setFetchError(false);
-    setIsLoading(true);
-    setWeatherOption(option);
-    const data = await fetchData(option);
-    if (data.status === 'error') setFetchError(data.errorMsg);
-    setWeatherData(data);
-    setIsLoading(false);
-  };
+  const [error, setError] = useState(false);
 
   const getCurrentWeather = async function () {
-    setBasicIsLoading(true);
     const data = await fetchCurrentWeather();
-    if (data.status === 'error') setBasicFetchError(data.errorMsg);
+    if (data.status === 'error') {
+      setError(data.errorMsg);
+      return;
+    }
+
     setBasicInfo(data);
-    setBasicIsLoading(false);
-  };
-
-  const updateWeather = async function (el) {
-    setRotateValue(rotateValue - 720);
-    el.target.style.transform = `rotate(${rotateValue}deg)`;
-
-    setIsLoading(true);
-    getCurrentWeather();
-    fetchData(weatherOption);
-    const data = await fetchData(weatherOption);
-    setWeatherData(data);
-    setIsLoading(false);
+    localStorage.setItem('basicInfo', JSON.stringify(data));
   };
 
   const initialFetch = async function () {
-    setIsLoading(true);
+    // Handle basic info
     getCurrentWeather();
-    const data = await fetchData(weatherOption);
-    if (data.status === 'error') setFetchError(data.errorMsg);
+
+    // Fetch data
+    const data = await fetchData(weatherOption.name);
+    if (data.status === 'error') {
+      const localData = JSON.parse(
+        localStorage.getItem(`${weatherOption.name}Data`)
+      );
+
+      setError(data.errorMsg);
+
+      // This checks when there is an error if local data exists it will display that
+      // if not it will display default data
+      localData && setWeatherData(localData);
+      return;
+    }
+
+    // Set data in local storage and display it
     setWeatherData(data);
-    setLastUpdate(getUpdateDate());
-    setIsLoading(false);
+    localStorage.setItem(`${weatherOption.name}Data`, JSON.stringify(data));
+
+    // Set last update time
+    const updateDate = getUpdateDate();
+    setLastUpdate(updateDate);
+    localStorage.setItem('lastUpdateDate', updateDate);
+  };
+
+  const chooseWeatherOption = async function (option) {
+    // Set weather option
+    setWeatherOption(option);
+    localStorage.setItem('weatherOption', JSON.stringify(option));
+
+    // Fetch data
+    const data = await fetchData(option.name);
+    if (data.status === 'error') {
+      const localData = JSON.parse(
+        localStorage.getItem(`${weatherOption.name}Data`)
+      );
+
+      setError(data.errorMsg);
+      localData && setWeatherData(localData);
+      return;
+    }
+
+    // Set and display data
+    setWeatherData(data);
+    localStorage.setItem(`${weatherOption.name}Data`, JSON.stringify(data));
+  };
+
+  const updateWeather = async function (el) {
+    setRotateValue(rotateValue - 360);
+    el.target.style.transform = `rotate(${rotateValue}deg)`;
+
+    getCurrentWeather();
+    const data = await fetchData(weatherOption.name);
+    if (data.status === 'error') {
+      const localData = JSON.parse(
+        localStorage.getItem(`${weatherOption.name}Data`)
+      );
+
+      setError(data.errorMsg);
+      localData && setWeatherData(localData);
+      return;
+    }
+
+    setWeatherData(data);
+    localStorage.setItem(`${weatherOption.name}Data`, JSON.stringify(data));
+
+    const updateDate = getUpdateDate();
+    setLastUpdate(updateDate);
+    localStorage.setItem('lastUpdateDate', updateDate);
   };
 
   useEffect(() => {
     initialFetch();
-
-    // Update weather every hour
-    // const weatherUpdateIntv = setInterval(() => {
-    //   fetchData(weatherOption).then(data => setWeatherData(data));
-    //   getCurrentWeather();
-    // }, 3600000);
 
     // Update clock every second
     const interval = setInterval(() => {
@@ -89,7 +137,6 @@ export const WeatherContextProvider = props => {
 
     return () => {
       clearInterval(interval);
-      // clearInterval(weatherUpdateIntv);
     };
   }, []);
 
@@ -104,10 +151,7 @@ export const WeatherContextProvider = props => {
         chooseWeatherOption,
         lastUpdate,
         updateWeather,
-        isLoading,
-        basicIsLoading,
-        fetchError,
-        basicFetchError,
+        error,
       }}
     >
       {props.children}

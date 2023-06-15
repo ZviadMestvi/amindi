@@ -3,10 +3,8 @@ import WeatherCard from '../weatherCard/WeatherCard';
 import WeatherContext from '../../store/weatherContext';
 import { DAYS_SHORT, MONTHS_SHORT, WEATHER_CODES } from '../../constants';
 import { convertUnixTo24Hour } from '../../helpers';
-import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import reload from '../../assets/reload.svg';
 import classes from './Weather.module.css';
-import Error from '../customError/Error';
 
 const Weather = () => {
   const ctx = useContext(WeatherContext);
@@ -64,10 +62,8 @@ const Weather = () => {
         </span>
       </p>
       <div className={classes.cardsWrapper}>
-        {ctx.isLoading ? (
-          <LoadingSpinner />
-        ) : ctx.fetchError ? (
-          <Error message={ctx.fetchError} />
+        {ctx.weatherData.status === 'default' ? (
+          <p>{ctx.error}</p>
         ) : (
           <ul className={classes.cards}>{cards}</ul>
         )}

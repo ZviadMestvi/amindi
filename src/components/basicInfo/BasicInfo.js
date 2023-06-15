@@ -3,7 +3,6 @@ import WeatherNav from '../weatherNav/WeatherNav';
 import WeatherContext from '../../store/weatherContext';
 import { WEATHER_CODES } from '../../constants';
 import classes from './BasicInfo.module.css';
-import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import Error from '../customError/Error';
 
 const BasicInfo = () => {
@@ -20,9 +19,7 @@ const BasicInfo = () => {
     <section className={classes.basicInfo}>
       <div className={classes.time}>
         <h1>{ctx.currentTime24}</h1>
-        {ctx.basicIsLoading ? (
-          <LoadingSpinner />
-        ) : ctx.basicFetchError ? (
+        {ctx.basicFetchError ? (
           <Error message={ctx.basicFetchError} />
         ) : (
           <p className={classes.temp}>

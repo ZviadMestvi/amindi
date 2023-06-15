@@ -2,8 +2,8 @@ import classes from './Error.module.css';
 
 const Error = props => {
   return (
-    <div>
-      <p>{props.message}</p>
+    <div className={classes.wrapper}>
+      <p>{props.msg}</p>
     </div>
   );
 };
