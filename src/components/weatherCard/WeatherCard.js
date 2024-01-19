@@ -1,55 +1,47 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useRef } from 'react';
 import WeatherContext from '../../store/weatherContext';
 import classes from './WeatherCard.module.css';
 
 const WeatherCard = props => {
-  const weatherName = useRef();
+  const tipboxRef = useRef();
+  const cardWrapperRef = useRef();
   const ctx = useContext(WeatherContext);
   const weatherCode = props.data.weatherCode;
 
   const handleMouseOver = function () {
-    weatherName.current.style.display = 'block';
+    tipboxRef.current.style.display = 'block';
   };
 
   const handleMouseMove = function (e) {
-    const tipboxRect = weatherName.current.getBoundingClientRect();
+    const tipboxRect = tipboxRef.current.getBoundingClientRect();
+    const cardWrapperRect = cardWrapperRef.current.getBoundingClientRect();
     const offsetY = 5;
     const offsetX = 10;
 
-    weatherName.current.style.top = `${
-      e.clientY - tipboxRect.height - offsetY
-    }px`;
-    weatherName.current.style.left = `${e.clientX + offsetX}px`;
+    tipboxRef.current.style.top = `${e.clientY - cardWrapperRect.top - tipboxRect.height - offsetY}px`;
+    tipboxRef.current.style.left = `${e.clientX - cardWrapperRect.left + offsetX}px`;
   };
 
   const handleMouseOut = function () {
-    weatherName.current.style.display = 'none';
+    tipboxRef.current.style.display = 'none';
   };
 
   return (
-    <>
+    <li ref={cardWrapperRef} className={classes.weatherCardWrapper}>
       <div className={classes.weatherCard}>
         <p className={classes.temp}>
           {props.data?.temp}
           <span className={classes.tempUnit}>{ctx.tempUnit}</span>
         </p>
-        {weatherCode && (
-          <img
-            onMouseMove={handleMouseMove}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-            src={weatherCode?.src}
-            alt={weatherCode?.alt}
-          />
-        )}
+        {weatherCode && <img onMouseMove={handleMouseMove} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} src={weatherCode?.src} alt={weatherCode?.alt} />}
 
         <p className={classes.day}>{props.data?.time}</p>
       </div>
 
-      <div ref={weatherName} className={classes.weatherName}>
+      <div ref={tipboxRef} className={classes.weatherName}>
         <p>{weatherCode?.alt}</p>
       </div>
-    </>
+    </li>
   );
 };
 

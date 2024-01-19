@@ -18,6 +18,3 @@ const App = () => {
 };
 
 export default App;
-
-// Flag icons
-// https://github.com/lipis/flag-icons

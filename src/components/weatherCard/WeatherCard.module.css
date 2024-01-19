@@ -1,3 +1,7 @@
+.weatherCardWrapper {
+  position: relative;
+}
+
 .weatherCard {
   display: flex;
   flex-direction: column;
@@ -43,5 +47,23 @@
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.8);
   position: absolute;
+  width: max-content;
   z-index: 1000;
+}
+
+@media only screen and (max-width: 500px) {
+  .weatherCard {
+    max-height: 140px;
+    min-height: 124px;
+    min-width: 172px;
+  }
+
+  .weatherCard img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .weatherCard .day {
+    font-size: 0.825rem;
+  }
 }

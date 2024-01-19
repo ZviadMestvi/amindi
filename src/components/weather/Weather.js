@@ -24,33 +24,21 @@ const Weather = () => {
         weatherCode: weatherCode,
       };
 
-      // This makes sure to only show future 48 hours
+      // This makes sure to show maximum of 48 hours in future
       if (i > currentHour.getHours() + 48) return null;
       // Don't show older than current hour weather
       if (hourDate < currentHour) return null;
 
-      return (
-        <li key={i}>
-          <WeatherCard data={data} />
-        </li>
-      );
+      return <WeatherCard key={i} data={data} />;
     }
 
     const data = {
-      time: `${DAYS_SHORT[hourDate.getDay()]} (${hourDate.getDate()} ${
-        MONTHS_SHORT[hourDate.getMonth()]
-      })`,
-      temp: `${Math.round(ctx.weatherData?.minTemp[i])}° - ${Math.round(
-        ctx.weatherData?.maxTemp[i]
-      )}`,
+      time: `${DAYS_SHORT[hourDate.getDay()]} (${hourDate.getDate()} ${MONTHS_SHORT[hourDate.getMonth()]})`,
+      temp: `${Math.round(ctx.weatherData?.minTemp[i])}° - ${Math.round(ctx.weatherData?.maxTemp[i])}`,
       weatherCode: weatherCode,
     };
 
-    return (
-      <li key={i}>
-        <WeatherCard data={data} />
-      </li>
-    );
+    return <WeatherCard key={i} data={data} />;
   });
 
   return (
@@ -61,13 +49,7 @@ const Weather = () => {
           <img src={reload} alt="Update weather" />
         </span>
       </p>
-      <div className={classes.cardsWrapper}>
-        {ctx.weatherData.status === 'default' ? (
-          <p>{ctx.error}</p>
-        ) : (
-          <ul className={classes.cards}>{cards}</ul>
-        )}
-      </div>
+      <div className={classes.cardsWrapper}>{ctx.weatherData.status === 'default' ? <p>{ctx.error}</p> : <ul className={classes.cards}>{cards}</ul>}</div>
     </section>
   );
 };

@@ -51,4 +51,10 @@
   .weatherNav {
     flex-wrap: wrap;
   }
+
+  .weatherNav li button,
+  .detail {
+    font-size: 15px;
+    padding: 8px 16px;
+  }
 }

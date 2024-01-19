@@ -14,13 +14,13 @@ body {
   font-family: 'Rubik';
   background-image: url('./assets/bg.webp');
   background-size: cover;
-  background-position-y: 36%;
+  background-position: center;
+  height: 100vh;
   color: white;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 button {

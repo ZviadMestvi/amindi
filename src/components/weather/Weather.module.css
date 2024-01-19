@@ -44,3 +44,22 @@
   backdrop-filter: blur(3px);
   background-color: rgba(255, 255, 255, 0.1);
 }
+
+@media only screen and (max-width: 500px) {
+  .updateTime {
+    font-size: 0.9375rem;
+  }
+
+  .updateTime span {
+    margin-left: 4px;
+  }
+
+  .updateTime img {
+    width: 17px;
+    height: 17px;
+  }
+
+  .cardsWrapper {
+    margin-top: 2px;
+  }
+}

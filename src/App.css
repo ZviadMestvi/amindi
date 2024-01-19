@@ -1,19 +1,18 @@
 .wrapper {
-  margin-top: 35vh;
   padding: 0 5em;
-  min-height: 65vh;
+  position: absolute;
+  bottom: 32px;
+  width: 100%;
 }
 
 @media only screen and (max-width: 1300px) {
   .wrapper {
-    margin-top: 33vh;
-    padding: 1em 1.875em;
+    padding: 0 1.875em;
   }
 }
 
 @media only screen and (max-width: 500px) {
   .wrapper {
-    margin-top: 28vh;
-    padding: 1em;
+    padding: 0 1em;
   }
 }
